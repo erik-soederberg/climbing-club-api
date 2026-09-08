@@ -1,0 +1,24 @@
+{
+  "name": "climbing-club-api",
+  "version": "1.0.0",
+  "description": "REST API för klätterklubbens ledlogg",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --forceExit"
+  },
+  "keywords": [
+    "climbing",
+    "rest-api",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "jest": "^30.5.1",
+    "supertest": "^7.2.2"
+  }
+}
