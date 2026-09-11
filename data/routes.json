@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "name": "Crimp City",
+      "wall": "vägg-a",
+      "type": "boulder",
+      "grade": "6A",
+      "holdColor": "orange",
+      "setterId": 1
+    },
+    {
+      "id": 2,
+      "name": "Långa linjen",
+      "wall": "vägg-b",
+      "type": "led",
+      "grade": "6b+",
+      "holdColor": "blå",
+      "setterId": 2
+    }
+  ]
