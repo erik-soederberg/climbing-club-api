@@ -16,5 +16,79 @@
       "grade": "6b+",
       "holdColor": "blå",
       "setterId": 2
-    }
+    },
+    {
+      "id": 3,
+      "name": "Slopetown",
+      "wall": "vägg-c",
+      "type": "boulder",
+      "grade": "6B",
+      "holdColor": "grön",
+      "setterId": 3
+    },
+    {
+      "id": 4,
+      "name": "Överhänget",
+      "wall": "vägg-d",
+      "type": "led",
+      "grade": "6c",
+      "holdColor": "röd",
+      "setterId": 1
+    },
+    {
+      "id": 5,
+      "name": "Fingerfest",
+      "wall": "vägg-e",
+      "type": "boulder",
+      "grade": "6C",
+      "holdColor": "gul",
+      "setterId": 2
+    },
+    {
+      "id": 6,
+      "name": "Tekniktricket",
+      "wall": "vägg-f",
+      "type": "led",
+      "grade": "7a",
+      "holdColor": "lila",
+      "setterId": 3
+    },
+    {
+      "id": 7,
+      "name": "Dynomiten",
+      "wall": "vägg-g",
+      "type": "boulder",
+      "grade": "7A",
+      "holdColor": "rosa",
+      "setterId": 1
+    },
+    {
+      "id": 8,
+      "name": "Topprepet",
+      "wall": "vägg-h",
+      "type": "led",
+      "grade": "7a+",
+      "holdColor": "vit",
+      "setterId": 2
+    },
+    {
+      "id": 9,
+      "name": "Final Boss",
+      "wall": "vägg-i",
+      "type": "boulder",
+      "grade": "7B",
+      "holdColor": "svart",
+      "setterId": 3
+    },
+    {
+        "id": 10,
+        "name": "Greppkungen",
+        "wall": "vägg-j",
+        "type": "boulder",
+        "grade": "6B+",
+        "holdColor": "turkos",
+        "setterId": 2
+      }
+      
   ]
+  
