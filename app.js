@@ -36,4 +36,20 @@ app.get('/routes/wall/:wall', (req, res) => {
     res.json(filtered);
   });
 
+  app.get("/routes/:id", (req, res) => {
+    const id = Number(req.params.id);
+  
+    const filePath = path.join(__dirname, "data", "routes.json");
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    const routes = JSON.parse(fileContent);
+  
+    const route = routes.find((route) => route.id === id);
+  
+    if (!route) {
+      return res.status(404).json({ error: "Route not found" });
+    }
+  
+    res.json(route);
+  });
+
 module.exports = app;
