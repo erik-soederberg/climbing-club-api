@@ -14,4 +14,15 @@ app.get('/routes', (req, res) => {
     res.json(routes);
   });
 
+app.get('/routes/type/:type', (req, res) => {
+    const type = req.params.type;
+  
+    const filePath = path.join(__dirname, 'data', 'routes.json');
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const routes = JSON.parse(fileContent);
+  
+    const filtered = routes.filter((route) => route.type === type);
+    res.json(filtered);
+  });
+
 module.exports = app;
