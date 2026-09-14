@@ -25,4 +25,15 @@ app.get('/routes/type/:type', (req, res) => {
     res.json(filtered);
   });
 
+app.get('/routes/wall/:wall', (req, res) => {
+    const wall = req.params.wall;
+  
+    const filePath = path.join(__dirname, 'data', 'routes.json');
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const routes = JSON.parse(fileContent);
+  
+    const filtered = routes.filter((route) => route.wall === wall);
+    res.json(filtered);
+  });
+
 module.exports = app;
