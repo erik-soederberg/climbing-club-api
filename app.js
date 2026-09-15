@@ -9,6 +9,9 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
+/**
+   * Routes endpoints
+   */
 app.get('/routes', (req, res) => {
     const filePath = path.join(__dirname, 'data', 'routes.json');
     const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -122,6 +125,10 @@ app.get('/routes/wall/:wall', (req, res) => {
     res.status(204).send();
   });
 
+ 
+  /**
+   * Setters endpoints
+   */
   app.get("/setters", (req, res) => {
     const filePath = path.join(__dirname, "data", "setters.json");
     const setters = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -141,4 +148,26 @@ app.get('/routes/wall/:wall', (req, res) => {
   
     res.json(setter);
   });
+
+  app.post("/setters", (req, res) => {
+    const { name, email } = req.body;
+  
+    if (!name || !email) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+  
+    const filePath = path.join(__dirname, "data", "setters.json");
+    const setters = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  
+    const newId = setters.length > 0
+      ? Math.max(...setters.map((setter) => setter.id)) + 1
+      : 1;
+  
+    const newSetter = { id: newId, name, email };
+    setters.push(newSetter);
+  
+    fs.writeFileSync(filePath, JSON.stringify(setters, null, 2));
+    res.status(201).json(newSetter);
+  });
+  
 module.exports = app;
