@@ -128,4 +128,17 @@ app.get('/routes/wall/:wall', (req, res) => {
     res.json(setters);
   });
 
+  app.get("/setters/:id", (req, res) => {
+    const id = Number(req.params.id);
+  
+    const filePath = path.join(__dirname, "data", "setters.json");
+    const setters = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const setter = setters.find((setter) => setter.id === id);
+  
+    if (!setter) {
+      return res.status(404).json({ error: "Setter not found" });
+    }
+  
+    res.json(setter);
+  });
 module.exports = app;
