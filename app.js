@@ -1,6 +1,8 @@
+const errorHandler = require("./middleware/errorHandler");
 const express = require('express');
 const routesRouter = require('./routes/routes');
 const settersRouter = require('./routes/setters');
+
 
 const app = express();
 
@@ -13,4 +15,5 @@ app.get('/', (req, res) => {
 app.use('/routes', routesRouter);
 app.use('/setters', settersRouter);
 
+app.use(errorHandler);
 module.exports = app;
