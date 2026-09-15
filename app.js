@@ -105,4 +105,21 @@ app.get('/routes/wall/:wall', (req, res) => {
     res.json(routes[index]);
   });
 
+  app.delete("/routes/:id", (req, res) => {
+    const id = Number(req.params.id);
+  
+    const filePath = path.join(__dirname, "data", "routes.json");
+    const routes = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  
+    const exists = routes.some((route) => route.id === id);
+    if (!exists) {
+      return res.status(404).json({ error: "Route not found" });
+    }
+  
+    const updated = routes.filter((route) => route.id !== id);
+    fs.writeFileSync(filePath, JSON.stringify(updated, null, 2));
+  
+    res.status(204).send();
+  });
+
 module.exports = app;

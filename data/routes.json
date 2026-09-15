@@ -88,12 +88,5 @@
     "grade": "6B+",
     "holdColor": "turkos",
     "setterId": 2
-  },
-  {
-    "id": 11,
-    "name": "Uppdaterad led",
-    "wall": "v�gg-a",
-    "type": "boulder",
-    "grade": "6B"
   }
 ]
