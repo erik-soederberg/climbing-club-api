@@ -59,4 +59,44 @@ describe('Routes API', () => {
         expect(response.status).toBe(400);
         expect(response.body).toHaveProperty('error');
       });
+
+      it('returns status 200 when updating a route', async () => {
+        const created = await request(app)
+          .post('/routes')
+          .send({
+            name: 'Att uppdatera',
+            wall: 'vägg-a',
+            type: 'boulder',
+            grade: '6A',
+          });
+      
+        const response = await request(app)
+          .put(`/routes/${created.body.id}`)
+          .send({
+            name: 'Uppdaterad',
+            wall: 'vägg-b',
+            type: 'led',
+            grade: '6b',
+          });
+      
+        expect(response.status).toBe(200);
+        expect(response.body.name).toBe('Uppdaterad');
+        expect(response.body.wall).toBe('vägg-b');
+      
+        await request(app).delete(`/routes/${created.body.id}`);
+      });
+
+      it('returns status 404 when updating a route that does not exist', async () => {
+        const response = await request(app)
+          .put('/routes/999')
+          .send({
+            name: 'Finns inte',
+            wall: 'vägg-a',
+            type: 'boulder',
+            grade: '6A',
+          });
+      
+        expect(response.status).toBe(404);
+        expect(response.body).toHaveProperty('error');
+      });
 });
