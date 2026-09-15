@@ -31,4 +31,32 @@ describe('Routes API', () => {
         expect(response.status).toBe(404);
         expect(response.body).toHaveProperty('error');
       });
+
+      it('returns status 201 when creating a route', async () => {
+        const newRoute = {
+          name: 'Testled',
+          wall: 'vägg-a',
+          type: 'boulder',
+          grade: '6A',
+        };
+      
+        const response = await request(app)
+          .post('/routes')
+          .send(newRoute);
+      
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty('id');
+        expect(response.body.name).toBe('Testled');
+      
+        await request(app).delete(`/routes/${response.body.id}`);
+      });
+
+      it('returns status 400 when required fields are missing', async () => {
+        const response = await request(app)
+          .post('/routes')
+          .send({ wall: 'vägg-a', type: 'boulder', grade: '6A' });
+      
+        expect(response.status).toBe(400);
+        expect(response.body).toHaveProperty('error');
+      });
 });
