@@ -18,4 +18,17 @@ describe('Routes API', () => {
         expect(response.body[0]).toHaveProperty('holdColor');
         expect(response.body[0]).toHaveProperty('setterId');
     });
+
+    it('returns status 200 and one route for GET /routes/:id', async () => {
+        const response = await request(app).get('/routes/1');
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('id', 1);
+        expect(response.body).toHaveProperty('name');
+      });
+
+    it('returns status 404 when route id does not exist', async () => {
+        const response = await request(app).get('/routes/999');
+        expect(response.status).toBe(404);
+        expect(response.body).toHaveProperty('error');
+      });
 });
