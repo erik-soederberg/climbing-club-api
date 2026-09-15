@@ -99,4 +99,28 @@ describe('Routes API', () => {
         expect(response.status).toBe(404);
         expect(response.body).toHaveProperty('error');
       });
+
+      it('returns status 204 when deleting a route', async () => {
+        const created = await request(app)
+          .post('/routes')
+          .send({
+            name: 'Att radera',
+            wall: 'vägg-a',
+            type: 'boulder',
+            grade: '6A',
+          });
+      
+        const response = await request(app).delete(`/routes/${created.body.id}`);
+      
+        expect(response.status).toBe(204);
+      
+        const check = await request(app).get(`/routes/${created.body.id}`);
+        expect(check.status).toBe(404);
+      });
+
+      it('returns status 404 when deleting a route that does not exist', async () => {
+        const response = await request(app).delete('/routes/999');
+        expect(response.status).toBe(404);
+        expect(response.body).toHaveProperty('error');
+      });
 });
