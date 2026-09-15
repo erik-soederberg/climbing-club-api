@@ -122,4 +122,10 @@ app.get('/routes/wall/:wall', (req, res) => {
     res.status(204).send();
   });
 
+  app.get("/setters", (req, res) => {
+    const filePath = path.join(__dirname, "data", "setters.json");
+    const setters = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    res.json(setters);
+  });
+
 module.exports = app;
