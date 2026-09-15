@@ -75,4 +75,34 @@ app.get('/routes/wall/:wall', (req, res) => {
     res.status(201).json(newRoute);
   });
 
+  app.put("/routes/:id", (req, res) => {
+    const id = Number(req.params.id);
+    const { name, wall, type, grade, holdColor, setterId } = req.body;
+  
+    if (!name || !wall || !type || !grade) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+  
+    const filePath = path.join(__dirname, "data", "routes.json");
+    const routes = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const index = routes.findIndex((route) => route.id === id);
+  
+    if (index === -1) {
+      return res.status(404).json({ error: "Route not found" });
+    }
+  
+    routes[index] = {
+      ...routes[index],
+      name,
+      wall,
+      type,
+      grade,
+      holdColor,
+      setterId,
+    };
+  
+    fs.writeFileSync(filePath, JSON.stringify(routes, null, 2));
+    res.json(routes[index]);
+  });
+
 module.exports = app;
