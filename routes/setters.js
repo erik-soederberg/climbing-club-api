@@ -34,7 +34,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   try {
-    const { name, email } = req.body;
+    const { name, email } = req.body || {};
 
     if (!name || !email) {
       return res.status(400).json({ error: 'Missing required fields' });

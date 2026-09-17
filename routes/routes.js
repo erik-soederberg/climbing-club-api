@@ -67,7 +67,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   try {
-    const { name, wall, type, grade, holdColor, setterId } = req.body;
+    const { name, wall, type, grade, holdColor, setterId } = req.body || {};
 
     if (!name || !wall || !type || !grade) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -93,7 +93,7 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   try {
     const id = Number(req.params.id);
-    const { name, wall, type, grade, holdColor, setterId } = req.body;
+    const { name, wall, type, grade, holdColor, setterId } = req.body || {};
 
     if (!name || !wall || !type || !grade) {
       return res.status(400).json({ error: 'Missing required fields' });

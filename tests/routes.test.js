@@ -1,6 +1,9 @@
+const fs = require('fs');
+const path = require('path');
 const request = require('supertest');
 
 const app = require('../app');
+const routesPath = path.join(__dirname, '..', 'data', 'routes.json');
 
 describe('Routes API', () => {
     it('returns status code 200 and a list with all routes', async () => {
@@ -122,5 +125,47 @@ describe('Routes API', () => {
         const response = await request(app).delete('/routes/999');
         expect(response.status).toBe(404);
         expect(response.body).toHaveProperty('error');
+      });
+
+    it('returns only boulder routes for GET /routes/type/boulder', async () => {
+        const all = await request(app).get('/routes');
+        const response = await request(app).get('/routes/type/boulder');
+
+        expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
+        expect(response.body.length).toBeGreaterThan(0);
+        expect(response.body.length).toBeLessThan(all.body.length);
+        expect(response.body.every((route) => route.type === 'boulder')).toBe(true);
+      });
+
+    it('returns only led routes for GET /routes/type/led', async () => {
+        const response = await request(app).get('/routes/type/led');
+
+        expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
+        expect(response.body.length).toBeGreaterThan(0);
+        expect(response.body.every((route) => route.type === 'led')).toBe(true);
+      });
+
+    it('returns only routes on that wall for GET /routes/wall/:wall', async () => {
+        const response = await request(app).get('/routes/wall/vägg-a');
+
+        expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
+        expect(response.body.length).toBeGreaterThan(0);
+        expect(response.body.every((route) => route.wall === 'vägg-a')).toBe(true);
+      });
+
+    it('returns status 500 when routes data cannot be read', async () => {
+        const original = fs.readFileSync(routesPath, 'utf8');
+        fs.writeFileSync(routesPath, '{not-valid-json');
+
+        try {
+          const response = await request(app).get('/routes');
+          expect(response.status).toBe(500);
+          expect(response.body).toHaveProperty('error');
+        } finally {
+          fs.writeFileSync(routesPath, original);
+        }
       });
 });

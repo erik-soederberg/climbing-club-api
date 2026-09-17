@@ -48,10 +48,5 @@
     "id": 10,
     "name": "Hugo Wikström",
     "email": "hugo.wikstrom@example.com"
-  },
-  {
-    "id": 11,
-    "name": "Sam Test",
-    "email": "sam@example.com"
   }
 ]
